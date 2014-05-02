@@ -34,6 +34,7 @@
 \documentclass{seminar}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -96,6 +97,20 @@
   \maketitle
 
   \color{Black}
+\end{slide}
+
+\begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \h{Fundamental Axioms of \textsc{Awesome}!}
+
+  \begin{itemize}
+  \item Math is \textsc{Awesome}!
+  \item Computer Science is \textsc{Awesome}!
+  \item $\lambda$ Calculus is \textsc{Awesome}!
+  \item Ruby is \textsc{Awesome}!
+  \end{itemize}
+
+  $\therefore$ we see that $\lambda$ Calculus in Ruby is \textsc{Awesome}!,
+  \textit{Q.E.D.}
 \end{slide}
 
 \begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
