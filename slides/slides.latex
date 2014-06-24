@@ -33,8 +33,10 @@
 
 \documentclass{seminar}
 
+\usepackage{fixltx2e}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -75,11 +77,17 @@
 }
 \newcommand{\cex}[1]{\textcolor{cexcolor}{\textit{#1}}}
 
+\newcommand{\fullSlideImage}[1]{
+  \begin{center}
+    \includegraphics[width=4in,height=2.5in,keepaspectratio=true]{#1}
+  \end{center}
+}
+
 \title{\psshadowbox{Ruby {\textcolor{Red}{$\heartsuit$}} $\lambda$ Calculus}}
 \author{Christopher Mark Gore\\
   \texttt{http://www.cgore.com}\\
   \texttt{cgore@cgore.com}\\
-  \raisebox{-2pt}{\includegraphics[height=10pt]{twitter-logo.eps}}
+  \raisebox{-2pt}{\includegraphics[height=10pt]{twitter-logo-bgmatch.eps}}
   \texttt{@cgore}}
 \date{WIP: ?????? ??, \textsc{ad} 2014}
 
