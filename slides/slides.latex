@@ -108,17 +108,12 @@
 \end{slide}
 
 \begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \h{Fundamental Axioms of \textsc{Awesome}!}
+  \h{Alonzo Church Invented It}
 
-  \begin{itemize}
-  \item Math is \textsc{Awesome}!
-  \item Computer Science is \textsc{Awesome}!
-  \item $\lambda$ Calculus is \textsc{Awesome}!
-  \item Ruby is \textsc{Awesome}!
-  \end{itemize}
+  \fullSlideImage{Alonzo_Church.eps}
 
-  $\therefore$ we see that $\lambda$ Calculus in Ruby is \textsc{Awesome}!,
-  \textit{Q.E.D.}
+  \textit{``Lambda's where it's at.''}
+
 \end{slide}
 
 \begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
