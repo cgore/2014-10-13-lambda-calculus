@@ -33,14 +33,14 @@
 
 \documentclass{seminar}
 
-\usepackage{fixltx2e}
+\usepackage{fixltx2e} % Bugfixes for LaTeX 2e
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{bookman}
+\usepackage{librebaskerville} % Baskerville font
 \usepackage{amsfonts}
 \usepackage{listings}
 \usepackage[dvips]{pstricks}
@@ -85,17 +85,15 @@
 
 \title{\psshadowbox{Ruby {\textcolor{Red}{$\heartsuit$}} $\lambda$ Calculus}}
 \author{Christopher Mark Gore\\
-  \texttt{http://www.cgore.com}\\
-  \texttt{cgore@cgore.com}\\
-  \raisebox{-2pt}{\includegraphics[height=10pt]{twitter-logo-bgmatch.eps}}
-  \texttt{@cgore}}
-\date{WIP: ?????? ??, \textsc{ad} 2014}
+  \texttt{cgore.com}}
+\date{Monday, October 13, {\smaller AD} 2014} % textsc doesn't seem to work for Baskerville.
 
 \begin{document}
 
 \raggedslides[0mm]
 
-\begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{slide}
   \color{\hc}
 
   \begin{center}
@@ -107,7 +105,60 @@
   \color{Black}
 \end{slide}
 
-\begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{slide}
+  \h{Math Can be Difficult, but Fun!}
+
+  \begin{itemize}
+  \item Mathematics is about finding patterns.
+  \item Mathematics is usually the simplest way to talk about complex subjects.
+  \item Mathematics can be confusing because of:
+    \begin{itemize}
+    \item bad notation,
+    \item bad textbooks,
+    \item bad teachers,
+    \item \textit{and sometimes \textellipsis}
+    \end{itemize}
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{\textellipsis Bad Students}
+
+  \fullSlideImage{stupid-students.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Computer Science is Mathematics}
+
+  \begin{itemize}
+  \item Computer science \textbf{is not} computer programming.
+  \item Computer science \textbf{is not} software engineering.
+  \item Computer science \textbf{is not} science, it's better than that:
+  \item Computer science \textbf{is actually} mathematics.
+  \item Computer science \textbf{really is} useful for computer programmers, in
+    spite of some arguments to the contrary.
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{Lambda Calculus}
+
+  \begin{itemize}
+  \item Lambda calculus \textbf{is not} the same ``calculus'' you learned in
+    your high school or college ``Calculus'' class.
+  \item It's a different calculus: there are a lot of others than just these two
+    (and a lot of other algebras than the normal one as well.)
+  \item It is actually \textbf{easier to use} for specific tasks than other
+    options (typically making mathematical proofs about algorithms.)
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
   \h{Alonzo Church Invented It}
 
   \fullSlideImage{Alonzo_Church.eps}
@@ -116,7 +167,8 @@
 
 \end{slide}
 
-\begin{slide} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{slide}
   \begin{center}
     \textcolor{\hc}{\textbf{\emph{\Huge{Questions?}}}}
   \end{center}
