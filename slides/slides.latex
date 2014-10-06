@@ -45,11 +45,15 @@
 \usepackage{listings}
 \usepackage[dvips]{pstricks}
 \usepackage{relsize}
+\usepackage{textcomp}
+\usepackage[normalem]{ulem}
+\usepackage{wasysym}
+
+
 \usepackage{semcolor,slidesec}
 \input{seminar.bug}
 \input{seminar.bg2}
-\usepackage{textcomp}
-\usepackage[normalem]{ulem}
+% \input{seminar.bg3} % TODO: why is this missing on OSX?
 
 \definecolor{fillcolor}{rgb}{0.9,0.95,1.0}
 \definecolor{linecolor}{rgb}{0.8,0.85,0.9}
@@ -162,9 +166,270 @@
   \h{Alonzo Church Invented It}
 
   \fullSlideImage{Alonzo_Church.eps}
-
   \textit{``Lambda's where it's at.''}
+\end{slide}
 
+
+\begin{slide}
+  \h{All of Lambda Calculus on Just One Slide!}
+
+  \begin{itemize}
+  \item Where $e$ is any expression,
+  \item $f$ is any function,
+  \item $n$ is any name, and
+  \item $a$ is any application:
+  \end{itemize}
+
+  $$ e := n | f | a $$
+  $$ f := \lambda n . e $$
+  $$ a := e e $$
+\end{slide}
+
+
+\begin{slide}
+  \begin{center}
+    \textcolor{\hc}{\textbf{\emph{\Huge{We're Done!}}}}
+  \end{center}
+
+  \begin{center}
+    \includegraphics[height=2.25in]{then-a-miracle-occurs-cartoon.eps}
+  \end{center}
+
+  \textit{Actually, some explanation might be in order \textellipsis}
+\end{slide}
+
+
+\begin{slide}
+  \h{Cool Facts about Lambda Calculus}
+
+  \begin{itemize}
+  \item It's the smallest universal programming language in the universe!
+  \item Church developed the lambda calculus to formalize the concept of
+    effective computability in the 1930's.
+  \item It's Turing complete!
+  \item There is only one transformation rule: variable substitution.
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{Names}
+
+  \begin{itemize}
+  \item Names (or \textit{variables}, or \textit{atoms}) are just any unique
+    identifier, typically just a single letter.
+  \item We'll mostly just use single letters: $a$, $b$, $c$, etc.
+  \item The best equivalent in Ruby are symbols:
+    \begin{itemize}
+      \item \texttt{:a},
+      \item \texttt{:b},
+      \item \texttt{:c},
+      \item \texttt{:joe\_don\_baker},
+      \item etc.
+    \end{itemize}
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{Expressions}
+
+  The most important part of lambda calculus is the concept of an expression.
+  $$ e := n | f | a $$
+  From this we see it's just any name, function, or application.
+  Expressions are \textbf{everything!}
+
+  \begin{center}
+    \includegraphics[height=1.75in]{everything-is-awesome.eps}
+  \end{center}
+\end{slide}
+
+
+
+\begin{slide}
+  \h{Functions}
+
+  A function\footnote{Technically, this must be a \textit{computable function},
+    but don't worry about what that actually means.}
+ (also called an \textit{abstraction}) just maps from a name to an expression.
+  $$ f := \lambda n . e $$ 
+  The name on the left is the \textit{argument} for the function, and the
+  expression to the right is the \textit{body} of the function.
+
+  Functions have most of the syntax in the entire language: the lambda
+  ($\lambda$) and the period ($.$).
+
+  The closest equivalent in Ruby is, of course, the function. But, only taking
+  in a single argument.
+
+\begin{lstlisting}
+->(n){e}
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Applications}
+
+  An application is just two expressions.  They are really here just for glue, so
+  that expressions can expand out like a tree forever, don't worry about them.
+  $$ a := e e $$
+  But, we \textit{apply} functions to expressions, that is the most common
+  direct use of them.
+\end{slide}
+
+
+\begin{slide}
+  \h{Parentheses and Left Association}
+
+  Expressions can be surrounded by parentheses for clarity of order.
+  $$ (E) = E $$
+  For \textit{clarity}\footnote{Actually, this is the main problem with the
+    lack of clarity found in the Lambda Calculus.  It allows for quite terse and
+    short formulas, but not really clear.} the left-association rule is used:
+  $$ E_1 E_2 E_3 = (E_1 E_2) E_3 $$
+  $$ E_1 E_2 E_3 E_4 = \left( (E_1 E_2) E_3 \right) E_4 $$
+  $$ E_1 E_2 E_3 \ldots E_n = \left( \ldots \left( (E_1 E_2) E_3 \right) \ldots E_n \right) $$
+\end{slide}
+
+
+\begin{slide}
+  \h{The Identity Function}
+
+  The identity function:
+  $$ \lambda x.x $$
+  It just returns what it is given.
+
+  How would this look in Ruby?
+\begin{lstlisting}
+->(x){x}
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Applying Functions}
+
+  We can \textit{apply} a function to an expression:
+  Let's apply the identity function to a really simple expression, just a single
+  atom:
+  $$ (\lambda x.x) y = [y/x] x = y$$
+  The \textit{bracket notation}\footnote{Sometimes to confuse you authors will
+    write this as $[x:=y]$ instead; notice that they are backwards, $[x:=y]
+    \equiv [y/x]$.}
+  that we see
+  in $[y/x]$ tells us to replace all $x$'s with $y$'s in the expression that
+  follows.
+  
+  How would this look in Ruby?
+\begin{lstlisting}
+->(x){x}[:y] # Returns :y 
+\end{lstlisting}
+
+  We can easily see what is happening here: where ever there is an $x$ in the
+  body of the function, the right hand side of the application is substituted,
+  in this case $y$.
+\end{slide}
+
+
+\begin{slide}
+  \h{Free and Bound Variables}
+
+  All variables are local to the scope of their function.
+  $$ \lambda x.xy $$
+  In this function definition:
+  \begin{itemize}
+  \item $x$ is a \textit{bound} variable.
+  \item $y$ is a \textit{free} variable.
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{Two Irritations That Are Actually Intentional Features}
+
+  \begin{itemize}
+  \item Functions are always anonymous: we get around this by
+    \textit{unofficially} assigning names to expressions, like
+    $$ \pmb{I} = \lambda x.x $$
+  \item Functions only ever take a single variable: we get around this with
+    \textit{currying}, which we'll discuss shortly.
+  \end{itemize}
+  This is to make the semantics more simple, but can be irritating sometimes otherwise.
+\end{slide}
+
+
+\begin{slide}
+  \h{$\alpha$ Equivalence}
+
+  The specific symbols used for the arguments of function definitions don't
+  matter, and can be switched out at will.
+  $$ \lambda x.x
+  \equiv \lambda y.y
+  \equiv \lambda z.z
+  \equiv \lambda \smiley.\smiley $$
+\end{slide}
+
+
+\begin{slide}
+  \h{$\beta$ Reductions}
+
+  The formal name for using those brackets is a \textit{$\beta$ reduction}.
+  In a class setting, you might get the limitless joy of working a lot of these
+  out by hand for hours on end.
+
+  Here's a short one I found on the Internet:\footnote{\texttt{https://gist.github.com/homelinen/4012463}}
+\end{slide}
+
+
+\begin{slide}
+\begin{eqnarray*}
+&& (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x \\
+& \to_\beta & (\lambda yz.xyz)[x := \lambda x.xx](\lambda x.x)x \\
+& \equiv & (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x \\
+& \to_\beta & (\lambda yz.(xx)[ x := y]z)(\lambda x.x)x \\
+& \equiv & (\lambda yz.yyz)(\lambda x.x)x \\
+& \to_\beta & (\lambda z.yy)[ y := \lambda x.x ]x \\
+& \equiv & (\lambda z.(\lambda x.x)(\lambda x.x)z)x \\
+& \to_\beta & (\lambda z.x[x := \lambda x.x]z)x \\
+& \equiv & (\lambda z.(\lambda x.x)z)x \\
+& \to_\beta & (\lambda z.x[x := z])x \\
+& \equiv & (\lambda z.z)x \\
+& \to_\beta & z[z := x] \\
+& \equiv & x
+\end{eqnarray*}
+\end{slide}
+
+
+\begin{slide}
+  \h{Currying}
+
+  One of the more irritating things about functions in lambda calculus is that
+  they can take only one argument.  What do we do when we want more arguments?
+  We curry.
+  $$ \lambda xy.y \equiv \lambda x.(\lambda y.y) $$
+
+  \begin{center}
+    \includegraphics[height=1.75in]{indian-curry.eps}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Currying in Ruby}
+  The equivalent in Ruby is something like this.
+\begin{lstlisting}
+# Like this, the simple version.
+i1 = ->(x){->(y){y}[x]}
+i1[:howza] # Returns :howza
+# Or like this (since Ruby 1.9.)
+i2 = ->(x){ ->(y){y}.curry[x] }
+i2[:howza] # Also returns :howza
+\end{lstlisting}
+
+  \begin{center}
+    \includegraphics[height=1.31in]{ruby-curry.eps}
+  \end{center}
 \end{slide}
 
 
@@ -172,6 +437,15 @@
   \begin{center}
     \textcolor{\hc}{\textbf{\emph{\Huge{Questions?}}}}
   \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{References}
+
+  \textit{The Untyped Lambda Calculus} (Manuel Eberl, 2011.)
+
+  \textit{A Tutorial Introduction to the Lambda Calculus} (Ra\'ul Rojas, 1997.)
 \end{slide}
 
 \end{document}
