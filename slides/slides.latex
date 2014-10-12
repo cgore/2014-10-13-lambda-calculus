@@ -249,22 +249,26 @@
 \begin{slide}
   \h{Functions}
 
-  A function\footnote{Technically, this must be a \textit{computable function},
-    but don't worry about what that actually means.}
- (also called an \textit{abstraction}) just maps from a name to an expression.
-  $$ f := \lambda n . e $$ 
-  The name on the left is the \textit{argument} for the function, and the
-  expression to the right is the \textit{body} of the function.
-
-  Functions have most of the syntax in the entire language: the lambda
-  ($\lambda$) and the period ($.$).
-
-  The closest equivalent in Ruby is, of course, the function. But, only taking
-  in a single argument.
+  \begin{itemize}
+  \item
+    A function\footnote{Technically, this must be a \textit{computable function},
+      but don't worry about what that actually means.}
+    (also called an \textit{abstraction}) just maps from a name to an expression:
+    $ f := \lambda n . e $
+  \item
+    The name on the left is the \textit{argument} for the function, and the
+    expression to the right is the \textit{body} of the function.
+  \item
+    Functions have most of the syntax in the entire language: the lambda
+    ($\lambda$) and the period ($.$).
+  \item
+    The closest equivalent in Ruby is, of course, the function. But, only taking
+    in a single argument.
 
 \begin{lstlisting}
 ->(n){e}
 \end{lstlisting}
+\end{itemize}
 \end{slide}
 
 
@@ -284,9 +288,12 @@
 
   Expressions can be surrounded by parentheses for clarity of order.
   $$ (E) = E $$
-  For \textit{clarity}\footnote{Actually, this is the main problem with the
+  For \textit{clarity}%
+  \footnote{Actually, this is the main problem with the
     lack of clarity found in the Lambda Calculus.  It allows for quite terse and
-    short formulas, but not really clear.} the left-association rule is used:
+    short formulas, but not really clear.  It's kind of like RPN, it just takes
+    some getting used to.}
+  the left-association rule is used:
   $$ E_1 E_2 E_3 = (E_1 E_2) E_3 $$
   $$ E_1 E_2 E_3 E_4 = \left( (E_1 E_2) E_3 \right) E_4 $$
   $$ E_1 E_2 E_3 \ldots E_n = \left( \ldots \left( (E_1 E_2) E_3 \right) \ldots E_n \right) $$
@@ -342,6 +349,12 @@
   \item $x$ is a \textit{bound} variable.
   \item $y$ is a \textit{free} variable.
   \end{itemize}
+
+  But this goes \textit{per expression}, so in
+  $$ (\lambda x.x) (\lambda y.yx) $$
+  we have $x$ as first bound and then free; the two instances of $x$ are
+  completely independent of each other.
+
 \end{slide}
 
 
@@ -364,7 +377,7 @@
 
   The specific symbols used for the arguments of function definitions don't
   matter, and can be switched out at will.
-  $$ \lambda x.x
+  $$ \pmb{I} = \lambda x.x
   \equiv \lambda y.y
   \equiv \lambda z.z
   \equiv \lambda \smiley.\smiley $$
@@ -443,9 +456,21 @@ i2[:howza] # Also returns :howza
 \begin{slide}
   \h{References}
 
-  \textit{The Untyped Lambda Calculus} (Manuel Eberl, 2011.)
-
-  \textit{A Tutorial Introduction to the Lambda Calculus} (Ra\'ul Rojas, 1997.)
+  \begin{itemize}
+  \item
+    \textit{Introduction to Lambda Calculus}
+    (Henk Barendregt and Erik Barendsen, 2000.)
+  \item
+    \textit{The Untyped Lambda Calculus}
+    (Manuel Eberl, 2011.)
+  \item
+    \textit{A Tutorial Introduction to the Lambda Calculus}
+    (Ra\'ul Rojas, 1997.)
+  \item
+    \textit{$\lambda$ Calculus -- Church Numerals and Lists}
+    (Michael Smith, 2004.)
+  \end{itemize}
+  
 \end{slide}
 
 \end{document}
