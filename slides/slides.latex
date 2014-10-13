@@ -394,9 +394,13 @@
 \begin{slide}
   \h{$\beta$ Reductions}
 
-  The formal name for using those brackets is a \textit{$\beta$ reduction}.
-  In a class setting, you might get the limitless joy of working a lot of these
-  out by hand for hours on end.
+  The \textit{beta reduction rule} just tells us what to do with some expression
+  with no bound variables.%
+  \footnote{Notice that the other form of brackets goes at the other side of the
+    evaluation too, just to be extra confusing.}
+
+
+  $$ (\lambda x.t)s = [s/x]t = t[x := s] $$
 
   Here's a short one I copy-pasted from the Internet:\footnote{\texttt{https://gist.github.com/homelinen/4012463}}
 \end{slide}
