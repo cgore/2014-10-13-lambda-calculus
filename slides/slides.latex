@@ -394,8 +394,8 @@
 \begin{slide}
   \h{$\beta$ Reductions}
 
-  The \textit{beta reduction rule} just tells us what to do with some expression
-  with no bound variables.%
+  The \textit{beta reduction rule} tells us what to do with some expression
+  application when we are trying to reduce it.%
   \footnote{Notice that the other form of brackets goes at the other side of the
     evaluation too, just to be extra confusing.}
 
@@ -407,20 +407,42 @@
 
 
 \begin{slide}
+  \h{$\beta$ Reductions Example}
   \begin{eqnarray*}
-    &           & (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x \\
-    & \to_\beta & (\lambda yz.xyz)[x := \lambda x.xx](\lambda x.x)x \\
-    & \equiv    & (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x \\
-    & \to_\beta & (\lambda yz.(xx)[ x := y]z)(\lambda x.x)x \\
-    & \equiv    & (\lambda yz.yyz)(\lambda x.x)x \\
-    & \to_\beta & (\lambda z.yy)[ y := \lambda x.x ]x \\
-    & \equiv    & (\lambda z.(\lambda x.x)(\lambda x.x)z)x \\
-    & \to_\beta & (\lambda z.x[x := \lambda x.x]z)x \\
-    & \equiv    & (\lambda z.(\lambda x.x)z)x \\
-    & \to_\beta & (\lambda z.x[x := z])x \\
-    & \equiv    & (\lambda z.z)x \\
-    & \to_\beta & z[z := x] \\
-    & \equiv    & x
+    &   (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x
+    & \to_\beta (\lambda yz.xyz)[x := \lambda x.xx](\lambda x.x)x \\
+    & = (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x
+    & \to_\beta (\lambda yz.(xx)[ x := y]z)(\lambda x.x)x \\
+    & = (\lambda yz.yyz)(\lambda x.x)x
+    & \to_\beta (\lambda z.yy)[ y := \lambda x.x ]x \\
+    & = (\lambda z.(\lambda x.x)(\lambda x.x)z)x
+    & \to_\beta (\lambda z.x[x := \lambda x.x]z)x \\
+    & = (\lambda z.(\lambda x.x)z)x
+    & \to_\beta (\lambda z.x[x := z])x \\
+    & = (\lambda z.z)x
+    & \to_\beta z[z := x] \\
+    & = x
+  \end{eqnarray*}
+\end{slide}
+
+
+\begin{slide}
+  \h{$\beta$ Reductions Example\\
+    (Other Brackets Style)}
+  \begin{eqnarray*}
+    &     (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x
+    & \to [\lambda x.xx/x](\lambda yz.xyz)(\lambda x.x)x \\
+    & =   (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x
+    & \to (\lambda yz.[y/x](xx)z)(\lambda x.x)x \\
+    & =   (\lambda yz.yyz)(\lambda x.x)x
+    & \to [\lambda x.x/y](\lambda z.yy)x \\
+    & =   (\lambda z.(\lambda x.x)(\lambda x.x)z)x
+    & \to (\lambda z.[\lambda x.x/x]xz)x \\
+    & =   (\lambda z.(\lambda x.x)z)x
+    & \to (\lambda z.[z/x]x)x \\
+    & =   (\lambda z.z)x
+    & \to [x/z]z \\
+    & =   x
   \end{eqnarray*}
 \end{slide}
 
@@ -466,6 +488,17 @@ i2[:howza] # Also returns :howza
     \pmb{F} & = & \lambda tf.f
   \end{eqnarray*}
 
+  How would these look in Ruby?
+\begin{lstlisting}
+t = ->(t,f){t}
+f = ->(t,f){f}
+t[:do_for_true,:do_for_false] # Returns :do_for_true
+f[:do_for_true,:do_for_false] # Returns :do_for_false
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
   With these we can quickly define the basic Boolean operations of
   \textit{and} ($\land$),
   \textit{or}  ($\lor$), and
@@ -477,6 +510,16 @@ i2[:howza] # Also returns :howza
   \end{eqnarray*}
   These definitions take advantage of the functional nature of both $\pmb{F}$
   and $\pmb{T}$ to work.
+
+  How would these look in Ruby?
+\begin{lstlisting}
+# Using the previous t and f as still defined.
+land = ->(x,y){ x[y,f] }
+lor  = ->(x,y){ x[t,y] }
+lnot = ->(x)  { x[f,t] }
+lnot[t] # Returns the f lambda.
+lnot[f] # Returns the t lambda.
+\end{lstlisting}
 \end{slide}
 
 
