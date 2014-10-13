@@ -544,6 +544,27 @@ lnot[f] # Returns the t lambda.
 
 
 \begin{slide}
+  \h{Church Numerals in Ruby}
+\begin{lstlisting}
+c0 = ->(s,z) { z } # Just run the "zero" z.
+c1 = ->(s,z) { s[z] } # The "successor" of zero.
+c2 = ->(s,z) { s[s[z]] } # 2
+c3 = ->(s,z) { s[s[s[z]]] } # 3
+# Now for the generic form.
+# This is an @variable so self-referencing will work.
+@cn = ->(s,n,z) { if n == 0 then
+                    z[]
+                  else
+                    @cn[s,n-1,s[z]]
+                  end }
+howza = ->(x) { puts "howza"; x }
+hey   = ->    { puts "hey" }
+@cn[howza,4,hey] # Prints howza 4 times, then hey.
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
   \h{Arithmetic}
 
   What should we do with numbers?
