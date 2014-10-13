@@ -180,9 +180,9 @@
   \item $a$ is any application:
   \end{itemize}
 
-  $$ e := n | f | a $$
-  $$ f := \lambda n . e $$
-  $$ a := e e $$
+  $$ e := n_i | f_j | a_k $$
+  $$ f := \lambda n_l . e_m $$
+  $$ a := e_1 e_2 $$
 \end{slide}
 
 
@@ -277,7 +277,7 @@
 
   An application is just two expressions.  They are really here just for glue, so
   that expressions can expand out like a tree forever, don't worry about them.
-  $$ a := e e $$
+  $$ a := e_1 e_2 $$
   But, we \textit{apply} functions to expressions, that is the most common
   direct use of them.
 \end{slide}
@@ -287,16 +287,16 @@
   \h{Parentheses and Left Association}
 
   Expressions can be surrounded by parentheses for clarity of order.
-  $$ (E) = E $$
+  $$ (e) = e $$
   For \textit{clarity}%
   \footnote{Actually, this is the main problem with the
     lack of clarity found in the Lambda Calculus.  It allows for quite terse and
     short formulas, but not really clear.  It's kind of like RPN, it just takes
     some getting used to.}
   the left-association rule is used:
-  $$ E_1 E_2 E_3 = (E_1 E_2) E_3 $$
-  $$ E_1 E_2 E_3 E_4 = \left( (E_1 E_2) E_3 \right) E_4 $$
-  $$ E_1 E_2 E_3 \ldots E_n = \left( \ldots \left( (E_1 E_2) E_3 \right) \ldots E_n \right) $$
+  $$ e_1 e_2 e_3 = (e_1 e_2) e_3 $$
+  $$ e_1 e_2 e_3 e_4 = \left( (e_1 e_2) e_3 \right) e_4 $$
+  $$ e_1 e_2 e_3 \ldots e_n = \left( \ldots \left( (e_1 e_2) e_3 \right) \ldots e_n \right) $$
 \end{slide}
 
 
@@ -354,7 +354,6 @@
   $$ (\lambda x.x) (\lambda y.yx) $$
   we have $x$ as first bound and then free; the two instances of $x$ are
   completely independent of each other.
-
 \end{slide}
 
 
@@ -381,6 +380,14 @@
   \equiv \lambda y.y
   \equiv \lambda z.z
   \equiv \lambda \smiley.\smiley $$
+
+  This is important to remember when mixing free and bound variables that are
+  ``the same.''  For example, in
+  $$ (\lambda x.(\lambda y.xy)) y $$
+  make sure not to confuse the bound $y$ in the function and the $y$ it is being
+  applied to.  The easiest way to avoid this is to just rename all of the bound
+  variables so that they are unique:
+  $$ (\lambda x.(\lambda w.xw)) y $$
 \end{slide}
 
 
@@ -391,26 +398,26 @@
   In a class setting, you might get the limitless joy of working a lot of these
   out by hand for hours on end.
 
-  Here's a short one I found on the Internet:\footnote{\texttt{https://gist.github.com/homelinen/4012463}}
+  Here's a short one I copy-pasted from the Internet:\footnote{\texttt{https://gist.github.com/homelinen/4012463}}
 \end{slide}
 
 
 \begin{slide}
-\begin{eqnarray*}
-&& (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x \\
-& \to_\beta & (\lambda yz.xyz)[x := \lambda x.xx](\lambda x.x)x \\
-& \equiv & (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x \\
-& \to_\beta & (\lambda yz.(xx)[ x := y]z)(\lambda x.x)x \\
-& \equiv & (\lambda yz.yyz)(\lambda x.x)x \\
-& \to_\beta & (\lambda z.yy)[ y := \lambda x.x ]x \\
-& \equiv & (\lambda z.(\lambda x.x)(\lambda x.x)z)x \\
-& \to_\beta & (\lambda z.x[x := \lambda x.x]z)x \\
-& \equiv & (\lambda z.(\lambda x.x)z)x \\
-& \to_\beta & (\lambda z.x[x := z])x \\
-& \equiv & (\lambda z.z)x \\
-& \to_\beta & z[z := x] \\
-& \equiv & x
-\end{eqnarray*}
+  \begin{eqnarray*}
+    &           & (\lambda xyz.xyz)(\lambda x.xx)(\lambda x.x)x \\
+    & \to_\beta & (\lambda yz.xyz)[x := \lambda x.xx](\lambda x.x)x \\
+    & \equiv    & (\lambda yz.(\lambda x.xx)yz)(\lambda x.x)x \\
+    & \to_\beta & (\lambda yz.(xx)[ x := y]z)(\lambda x.x)x \\
+    & \equiv    & (\lambda yz.yyz)(\lambda x.x)x \\
+    & \to_\beta & (\lambda z.yy)[ y := \lambda x.x ]x \\
+    & \equiv    & (\lambda z.(\lambda x.x)(\lambda x.x)z)x \\
+    & \to_\beta & (\lambda z.x[x := \lambda x.x]z)x \\
+    & \equiv    & (\lambda z.(\lambda x.x)z)x \\
+    & \to_\beta & (\lambda z.x[x := z])x \\
+    & \equiv    & (\lambda z.z)x \\
+    & \to_\beta & z[z := x] \\
+    & \equiv    & x
+  \end{eqnarray*}
 \end{slide}
 
 
@@ -447,6 +454,88 @@ i2[:howza] # Also returns :howza
 
 
 \begin{slide}
+  \h{Church Booleans}
+
+  The \textit{Church Booleans} are really simple to define.
+  \begin{eqnarray*}
+    \pmb{T} & = & \lambda tf.t \\
+    \pmb{F} & = & \lambda tf.f
+  \end{eqnarray*}
+
+  With these we can quickly define the basic Boolean operations of
+  \textit{and} ($\land$),
+  \textit{or}  ($\lor$), and
+  \textit{not} ($\lnot$):
+  \begin{eqnarray*}
+    \pmb{\land} & = & \lambda xy.xy\pmb{F} \\
+    \pmb{\lor}  & = & \lambda xy.x\pmb{T}y \\
+    \pmb{\lnot} & = & \lambda x.x\pmb{FT}
+  \end{eqnarray*}
+  These definitions take advantage of the functional nature of both $\pmb{F}$
+  and $\pmb{T}$ to work.
+\end{slide}
+
+
+\begin{slide}
+  \h{Church Numerals}
+
+  There aren't any numbers in the lambda calculus, but thanks to Peano's axioms,
+  we can make them out of thin air!  We need a \textit{zero function} and a
+  \textit{successor function}:
+  \begin{eqnarray*}
+    0 = \pmb{C_0} & =      & \lambda s.(\lambda z.z) = \lambda sz.z \\
+    1 = \pmb{C_1} & =      & \lambda sz.s(z) \\
+    2 = \pmb{C_2} & =      & \lambda sz.s(s(z))    = \lambda sz.s^2z\\
+    3 = \pmb{C_3} & =      & \lambda sz.s(s(s(z))) = \lambda sz.s^3z\\
+                  & \vdots & \\
+    n = \pmb{C_n} & =      &                         \lambda sz.s^nz
+  \end{eqnarray*}
+  What these are actually doing is recursing down $n$ times, so it makes a sort
+  of loop too: if you wanted to ``do something'' $n$ times, just apply $\pmb{C_n}$ to
+  that thing.
+\end{slide}
+
+
+\begin{slide}
+  \h{Arithmetic}
+
+  What should we do with numbers?
+  Arithmetic of course!
+  Again, this takes advantage of the definition of the Church numerals being
+  functions themselves to operate, just like the Church Booleans.
+  \begin{eqnarray*}
+    \textrm{successor}              = \pmb{S}      & = & \lambda n.\lambda fx.f(nfx) \\
+    \textrm{addition}               = \pmb{+}      & = & \lambda mn.\lambda fx.mf(nfx) \\
+    \textrm{multiplication}         = \pmb{\times} & = & \lambda mn.\lambda f.m(nf) \\
+    \textrm{exponentiation ($x^y$)} = \pmb{expt}   & = & \lambda xy.yx
+  \end{eqnarray*}
+  In a strange twist, exponentiation is the easiest of all the definitions:
+  passing $x$ into $y$ causes $x$ to be multiplied by itself $y$ times!
+\end{slide}
+
+
+\begin{slide}
+  \h{What about Subtraction?}
+
+  That's complicated.
+\end{slide}
+
+
+\begin{slide}
+  \h{What about Floating Point Numbers?}
+
+  That's complicated.
+\end{slide}
+
+
+\begin{slide}
+  \h{What about \textellipsis?}
+
+  That's complicated.
+\end{slide}
+
+
+\begin{slide}
   \begin{center}
     \textcolor{\hc}{\textbf{\emph{\Huge{Questions?}}}}
   \end{center}
@@ -467,10 +556,13 @@ i2[:howza] # Also returns :howza
     \textit{A Tutorial Introduction to the Lambda Calculus}
     (Ra\'ul Rojas, 1997.)
   \item
+    \textit{Formal Syntax and Semantics of Programming Languages}
+    (Slonneger and Kurtz, 1995.)\\
+    \texttt{http://homepage.cs.uiowa.edu/~slonnegr/plf/Book/}
+  \item
     \textit{$\lambda$ Calculus -- Church Numerals and Lists}
     (Michael Smith, 2004.)
   \end{itemize}
-  
 \end{slide}
 
 \end{document}
