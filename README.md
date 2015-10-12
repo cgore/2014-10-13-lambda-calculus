@@ -1,4 +1,4 @@
-# 2014-10-13-lambda-calculus
+# Chris Gore - STL Ruby - Eigenclasses, Singletons, What? (June 8, 2015)
 This is a talk I gave at
 [STL Ruby](http://www.meetup.com/stlruby/)
 on October 13, 2014.
